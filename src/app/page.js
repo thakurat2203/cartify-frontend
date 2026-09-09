@@ -312,7 +312,7 @@ export default function Home() {
                             key={product._id}
                             className={`${styles.assistantProductCard} ${styles.recommendationCard}`}
                           >
-                            <Link href={`/products/${product._id}`}>
+                            <Link href={`/products/${product.slug}`}>
                               <strong>{product.name}</strong>
                               <span>Rs. {product.price}</span>
                               <small>{product.category}</small>
@@ -353,7 +353,7 @@ export default function Home() {
                               key={product._id}
                               className={styles.assistantProductCard}
                             >
-                              <Link href={`/products/${product._id}`}>
+                              <Link href={`/products/${product.slug}`}>
                                 <strong>{product.name}</strong>
                                 <span>
                                   Rs. {product.price} &middot; Qty {quantity}
@@ -525,7 +525,7 @@ export default function Home() {
                   <div className={styles.card}>
                     {/* Product details remain clickable while cart action stays inside the card. */}
                     <Link
-                      href={`/products/${product._id}`}
+                      href={`/products/${product.slug}`}
                       className={styles.cardLink}
                     >
                       <div className={styles.cardImage}>

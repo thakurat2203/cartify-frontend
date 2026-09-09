@@ -21,7 +21,10 @@ Browser requests stay on the frontend origin at `/api/*`. This keeps HTTP-only a
 ### Storefront
 
 - Product catalog with search, category, price, stock, sorting, and pagination filters.
-- Product cards and product detail pages with image fallback UI.
+- Product cards and server-rendered slug-based product detail pages with image fallback UI.
+- SEO product metadata, canonical URLs, Open Graph/Twitter tags, and Product JSON-LD.
+- Dynamic `/sitemap.xml` and `/robots.txt` routes for search crawlers.
+- Optimized product images through `next/image`.
 - AI shopping assistant panel for recommendations and budget bundles.
 - Persistent Zustand cart with localStorage persistence.
 - Stock-aware add-to-cart and quantity controls.
@@ -64,7 +67,9 @@ client/
 |   |   |-- checkout/          # Razorpay checkout flow
 |   |   |-- login/             # Login page
 |   |   |-- orders/            # Customer order history and details
-|   |   |-- products/          # Product detail pages
+|   |   |-- products/          # Slug-based public product detail pages
+|   |   |-- sitemap.js         # Dynamic product sitemap
+|   |   |-- robots.js          # Crawler rules and sitemap reference
 |   |   |-- register/          # Registration page
 |   |   |-- globals.css
 |   |   |-- layout.js
@@ -78,6 +83,7 @@ client/
 |   |-- lib/
 |   |   |-- api.js
 |   |   |-- razorpay.js
+|   |   |-- server-api.js      # Server-side product and sitemap fetches
 |   |   `-- tailwind-styles.js
 |   |-- store/
 |   |   `-- cart-store.js
@@ -107,6 +113,9 @@ Create `.env.local` from `.env.example`:
 
 ```env
 NEXT_PUBLIC_API_BASE_URL=http://localhost:5000
+API_SERVER_BASE_URL=http://localhost:5000
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_PRODUCT_IMAGE_ALLOWED_HOSTS=images.unsplash.com
 ```
 
 Use this value on Vercel:
@@ -137,6 +146,28 @@ npm run lint
 ```
 
 The local app runs at http://localhost:3000.
+
+## SEO URLs
+
+Public product pages use stable slugs:
+
+```text
+/products/{slug}
+```
+
+Public product ID URLs are intentionally unsupported and return `404`. Product
+IDs remain in use for admin routes and cart identity.
+
+SEO routes:
+
+```text
+/sitemap.xml
+/robots.txt
+```
+
+The product page renders its content on the server before browser JavaScript
+runs. Its initial HTML includes product metadata, a canonical URL, social sharing
+tags, and Product JSON-LD structured data.
 
 ## API Usage
 
