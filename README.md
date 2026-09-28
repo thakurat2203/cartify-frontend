@@ -12,6 +12,7 @@ Production API proxy target:
 
 ```env
 NEXT_PUBLIC_API_BASE_URL=https://cartify-backend-lg8z.onrender.com
+API_SERVER_BASE_URL=https://cartify-backend-lg8z.onrender.com
 ```
 
 Browser requests stay on the frontend origin at `/api/*`. This keeps HTTP-only auth cookies first-party while the backend still runs on Render.
@@ -122,6 +123,7 @@ Use this value on Vercel:
 
 ```env
 NEXT_PUBLIC_API_BASE_URL=https://cartify-backend-lg8z.onrender.com
+API_SERVER_BASE_URL=https://cartify-backend-lg8z.onrender.com
 ```
 
 ### Run

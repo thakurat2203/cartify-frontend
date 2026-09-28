@@ -15,9 +15,38 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  "https://cartify-frontend-rouge.vercel.app"
+).replace(/\/$/, "");
+
+const siteTitle = "Cartify | Electronics and Accessories Store";
+const siteDescription =
+  "Shop electronics and everyday accessories with clear product details and live stock availability.";
+
 export const metadata = {
-  title: "Cartify - E-Commerce Store",
-  description: "A Next.js and MERN learning e-commerce project",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: siteTitle,
+    template: "%s | Cartify",
+  },
+  description: siteDescription,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    siteName: "Cartify",
+    title: siteTitle,
+    description: siteDescription,
+    url: "/",
+  },
+  twitter: {
+    card: "summary",
+    title: siteTitle,
+    description: siteDescription,
+  },
 };
 
 export default function RootLayout({ children }) {
